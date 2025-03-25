@@ -1,0 +1,188 @@
+// battle-simulator.component.scss
+$primary-color: #2c3e50;
+$secondary-color: #e74c3c;
+$background-color: #f8f9fa;
+$winner-color: #27ae60;
+
+.battle-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+
+  h2 {
+    text-align: center;
+    color: $primary-color;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .progress {
+    text-align: center;
+    font-weight: bold;
+    color: $secondary-color;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    background: lighten($secondary-color, 35%);
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+
+  .battle-log {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    position: relative;
+
+    .pokemon-card {
+      flex: 1;
+      background: $background-color;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      text-align: center;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &.winner {
+        border: 3px solid $winner-color;
+        box-shadow: 0 0 15px rgba($winner-color, 0.2);
+      }
+
+      img {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        margin: 0 auto;
+        display: block;
+        filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+      }
+
+      h3 {
+        color: $primary-color;
+        margin: 1rem 0;
+        font-size: 1.5rem;
+        text-transform: capitalize;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+
+        div {
+          background: white;
+          padding: 0.8rem;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          color: darken($primary-color, 10%);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+          &:nth-child(odd) {
+            background: lighten($primary-color, 60%);
+          }
+        }
+      }
+    }
+
+    .vs {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: $secondary-color;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 2;
+    }
+  }
+
+  .result {
+    text-align: center;
+    padding: 2rem;
+    background: lighten($winner-color, 40%);
+    border-radius: 10px;
+    margin-top: 2rem;
+
+    h3 {
+      color: darken($winner-color, 10%);
+      margin: 0;
+      font-size: 1.8rem;
+
+      &::before {
+        content: '🏆';
+        margin-right: 0.5rem;
+      }
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.8rem 2rem;
+      background: $secondary-color;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+
+      &:hover {
+        background: darken($secondary-color, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  // Animación para cambios de log
+  :host {
+    .battle-log {
+      animation: fadeIn 0.5s ease;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .battle-log {
+      flex-direction: column;
+      gap: 3rem;
+
+      .pokemon-card {
+        width: 100%;
+        min-height: auto;
+      }
+
+      .vs {
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+}

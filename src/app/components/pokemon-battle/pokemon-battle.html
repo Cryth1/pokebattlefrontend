@@ -1,0 +1,39 @@
+<div class="battle-container">
+  <!-- Encabezado -->
+  <h2>⚔️ Batalla Pokémon</h2>
+
+  <!-- Progreso de la batalla -->
+  <div class="progress">
+    {{currentLogIndex + 1}} / {{battleResult!.logs.length}}
+  </div>
+
+  <!-- Log actual -->
+  <div *ngIf="battleResult" class="battle-log">
+    <div class="pokemon-card" [class.winner]="battleResult.logs[currentLogIndex].winner === battleResult.logs[currentLogIndex].pokemon1">
+      <img [src]="battleResult.logs[currentLogIndex].pokemon1.sprites.front_default" alt="Pokemon 1">
+      <h3>{{battleResult.logs[currentLogIndex].pokemon1.name | titlecase}}</h3>
+      <div class="stats">
+        <div *ngFor="let stat of battleResult.logs[currentLogIndex].pokemon1.stats">
+          {{stat.name | uppercase}}: {{stat.value}}
+        </div>
+      </div>
+    </div>
+
+    <div class="vs">VS</div>
+
+    <div class="pokemon-card" [class.winner]="battleResult.logs[currentLogIndex].winner === battleResult.logs[currentLogIndex].pokemon2">
+      <img [src]="battleResult.logs[currentLogIndex].pokemon2.sprites.front_default" alt="Pokemon 2">
+      <h3>{{battleResult.logs[currentLogIndex].pokemon2.name | titlecase}}</h3>
+      <div class="stats">
+        <div *ngFor="let stat of battleResult.logs[currentLogIndex].pokemon2.stats">
+          {{stat.name | uppercase}}: {{stat.value}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resultado final -->
+  <div *ngIf="!isSimulating && battleResult" class="result">
+    <h3>🏆 Equipo ganador: {{battleResult.winningTeam}}</h3>
+  </div>
+</div>
